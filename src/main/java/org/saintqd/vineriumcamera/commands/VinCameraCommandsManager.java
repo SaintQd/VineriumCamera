@@ -217,7 +217,7 @@ public class VinCameraCommandsManager {
             return;
         }
         int startIndex = (page - 1) * 8;
-        int endIndex = Math.min(possiblePlayers.size() - 1,page * 8 - 1);
+        int endIndex = Math.min(possiblePlayers.size(), page * 8 - 1);
         for (int i = startIndex; i < endIndex; i++) {
             Player player = possiblePlayers.get(i);
             TriState permissionState = player.permissionValue("vineriumcamera.showforbid");
