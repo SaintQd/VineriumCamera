@@ -1,0 +1,17 @@
+name: VineriumCamera
+version: 1.0
+author: SaintQd
+main: org.saintqd.vineriumcamera.VineriumCamera
+api-version: 1.21.4
+depend: [VineriumLib]
+softdepend: [CMI,PlaceholderAPI,Vault]
+permissions:
+  vineriumcamera.admin:
+    description: Access to admin commands.
+    default: op
+  vineriumcamera.toggleshow:
+    description: Позволяет переключить показ игрока на камере.
+    default: op
+  vineriumcamera.showforbid:
+    description: Активация запрета показа игрока на камере.
+    default: false

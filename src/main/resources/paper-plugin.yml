@@ -1,0 +1,20 @@
+name: VineriumCamera
+version: '1.0'
+author: SaintQd
+main: org.saintqd.vineriumcamera.VineriumCamera
+description: VineriumCamera Plugin
+api-version: '1.21.4'
+dependencies:
+  server:
+    VineriumLib:
+      load: BEFORE
+      required: true
+    CMI:
+      load: BEFORE
+      required: false
+    PlaceholderAPI:
+      load: BEFORE
+      required: false
+    Vault:
+      load: BEFORE
+      required: false
