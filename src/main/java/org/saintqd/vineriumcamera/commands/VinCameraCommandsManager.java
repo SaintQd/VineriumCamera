@@ -10,10 +10,8 @@ import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.util.TriState;
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.bukkit.plugin.Plugin;
 import org.saintqd.vineriumcamera.VinCamera;
 import org.saintqd.vineriumcamera.VineriumCamera;
@@ -21,7 +19,6 @@ import org.saintqd.vineriumlib.VineriumLib;
 import org.saintqd.vineriumlib.utils.VinUtils;
 
 import java.util.*;
-import java.util.stream.Stream;
 
 public class VinCameraCommandsManager {
 
@@ -82,6 +79,13 @@ public class VinCameraCommandsManager {
                                     .requires(predicate -> predicate.getSender().hasPermission("vineriumcamera.admin"))
                                     .executes(ctx -> {
                                         infoCommand(ctx.getSource().getSender());
+                                        return com.mojang.brigadier.Command.SINGLE_SUCCESS;
+                                    })
+                            )
+                            .then(Commands.literal("lock")
+                                    .requires(predicate -> predicate.getSender().hasPermission("vineriumcamera.admin"))
+                                    .executes(ctx -> {
+                                        lockCommand(ctx.getSource().getSender());
                                         return com.mojang.brigadier.Command.SINGLE_SUCCESS;
                                     })
                             )
@@ -202,6 +206,20 @@ public class VinCameraCommandsManager {
             sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"cameraInfoTargetNotFound"));
         long timeToChange = VinUtils.getCurrentTick() - camera.getLastPlayerWatchTime() + camera.getTimeToPlayerChange();
         sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"cameraInfoTimeToChange",Long.toString(timeToChange)));
+    }
+
+    private static void lockCommand(CommandSender sender) {
+
+        VinCamera camera = VineriumCamera.inst().getCameraInstance();
+
+        if (camera.getLocked()) {
+            camera.setLocked(false);
+            sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"cameraLockOff"));
+        }
+        else {
+            camera.setLocked(true);
+            sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"cameraLockOn"));
+        }
     }
 
     private static void showOrderCommand(CommandSender sender, int page) {

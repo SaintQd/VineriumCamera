@@ -3,6 +3,8 @@ Lang:
   commandReload: "<green>Плагин перезагружен."
   cameraStart: "<aqua>VineriumCamera <green>запущена. Игрок <aqua>{1} <green>является источником камеры."
   cameraStop: "<aqua>VineriumCamera <green>остановлена."
+  cameraLockOn: "<aqua>VineriumCamera <green>была заблокирована на текущей цели."
+  cameraLockOff: "<aqua>VineriumCamera <green>была разблокирована."
   cameraNotActive: "<red>VineriumCamera не запущена."
   cameraSetWatched: "<aqua>VineriumCamera <green>теперь наблюдает за игроком <aqua>{1}<green>."
   cameraNextPlayerNotFound: "<gold>Не удалось переключиться на следующего игрока."

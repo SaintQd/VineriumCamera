@@ -32,6 +32,7 @@ class VinCamera {
     var lastPositionChange : Long = 0
     var actionBarMessage : Component = Component.empty()
     var lightSourceMaterials = mutableSetOf<Material>()
+    var locked = false;
 
     var cameraDelay : Long = 40
     var timeToPlayerChange : Long = 1200
@@ -226,6 +227,8 @@ class VinCamera {
 
     fun selectNextPlayer() : Player? {
         val possiblePlayers = getPossiblePlayers()
+        if (locked && watchedPlayer != null)
+            return watchedPlayer
 
         var lastPlayerIndex = 0
         if (watchedPlayer != null) {
