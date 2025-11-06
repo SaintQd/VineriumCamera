@@ -20,7 +20,6 @@ import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.scheduler.BukkitTask
 import org.saintqd.vineriumlib.utils.VinUtils
 import java.util.concurrent.ThreadLocalRandom
-import kotlin.collections.remove
 
 class VinCamera {
 
@@ -28,11 +27,14 @@ class VinCamera {
     var watchedPlayer : Player? = null
     var watchedPlayerMoveEvent : PlayerMoveEvent? = null
     var task : BukkitTask? = null
+    var reconnectTask : BukkitTask? = null
     var lastPlayerWatchTime : Long = 0
     var lastPositionChange : Long = 0
     var actionBarMessage : Component = Component.empty()
     var lightSourceMaterials = mutableSetOf<Material>()
     var locked = false;
+    var lastCameraNickname = "";
+    var reconnectEnabled = true;
 
     var cameraDelay : Long = 40
     var timeToPlayerChange : Long = 1200
@@ -55,17 +57,28 @@ class VinCamera {
         minHeight = VineriumCamera.inst().config.getDouble("VineriumCamera.MinHeight")
         maxPositionTries = VineriumCamera.inst().config.getInt("VineriumCamera.MaxPositionTries").coerceAtLeast(1)
         commandsOnStart = VineriumCamera.inst().config.getStringList("VineriumCamera.CommandsOnStart")
+        lastCameraNickname = VineriumCamera.inst().config.getString("VineriumCamera.DefaultCameraNickname","")!!
+        reconnectEnabled = VineriumCamera.inst().config.getBoolean("VineriumCamera.ReconnectEnabled",true)
         for (sourceMaterialString in VineriumCamera.inst().config.getStringList("VineriumCamera.LightSourceMaterials")) {
             val material = EnumUtils.getEnum(Material::class.java,sourceMaterialString.uppercase())
             if (material != null)
                 lightSourceMaterials.add(material);
             else
-                VinUtils.sendDebugMessage(0,"<yellow>Error loading skill info: Material ${sourceMaterialString.uppercase()} is not valid.")
+                VinUtils.sendDebugMessage(0,"<yellow>Error loading light source info: Material ${sourceMaterialString.uppercase()} is not valid.")
+        }
+        reconnectTask?.cancel()
+        if (reconnectEnabled) {
+            reconnectTask = object: BukkitRunnable() {
+                override fun run() {
+                    reconnectTask()
+                }
+            }.runTaskTimer(VineriumCamera.inst(),1L,600)
         }
     }
 
     fun startCamera(player : Player) {
         cameraPlayer = player
+        lastCameraNickname = player.name
         cameraPlayer?.let {
             for (command in commandsOnStart) {
                 var commandParsed = command.replace("%player_name%",it.name)
@@ -93,6 +106,17 @@ class VinCamera {
         cameraPlayer = null
         watchedPlayer = null
         lastPlayerWatchTime = 0
+    }
+
+    fun reconnectTask() {
+        if (cameraPlayer == null || !cameraPlayer!!.isOnline)
+            return
+        val lastCameraPlayer = Bukkit.getPlayer(lastCameraNickname)
+        VinUtils.sendDebugMessage(1,"<gray>Trying to reconnect last camera player with nickname ${lastCameraNickname}...")
+        if (lastCameraPlayer != null)
+            startCamera(lastCameraPlayer)
+        else
+            VinUtils.sendDebugMessage(1,"<gray>Could not reconnect ${lastCameraNickname}: Player is null.")
     }
 
     fun cameraTask() {

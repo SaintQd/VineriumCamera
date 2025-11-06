@@ -105,6 +105,8 @@ public class VineriumCamera extends JavaPlugin {
         config.addDefault("VineriumCamera.MinHeight",-0.8);
         config.addDefault("VineriumCamera.MaxPositionTries",20);
         config.addDefault("VineriumCamera.CommandsOnStart", List.of("gm 3 %player_name% -s"));
+        config.addDefault("VineriumCamera.DefaultCameraNickname", "VinCamera");
+        config.addDefault("VineriumCamera.ReconnectEnabled", true);
         config.addDefault("VineriumCamera.LightSourceMaterials", List.of(
                 Material.TORCH.name(),
                 Material.LANTERN.name(),
