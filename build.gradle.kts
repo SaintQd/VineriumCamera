@@ -18,7 +18,7 @@ repositories {
 
 dependencies {
     compileOnly("me.clip:placeholderapi:2.11.6") // repo.extendedclip.com
-    compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.21.8-R0.1-SNAPSHOT")
     compileOnly("com.github.Zrips:CMI-API:9.7.14.3")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7.1")
     compileOnly(files("../VineriumLib/build/libs/VineriumLib-1.0-SNAPSHOT.jar"))
