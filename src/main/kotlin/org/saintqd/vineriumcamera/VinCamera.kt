@@ -109,14 +109,16 @@ class VinCamera {
     }
 
     fun reconnectTask() {
-        if (cameraPlayer == null || !cameraPlayer!!.isOnline)
-            return
+        cameraPlayer?.let {
+            if (it.isOnline)
+                return
+        }
         val lastCameraPlayer = Bukkit.getPlayer(lastCameraNickname)
         VinUtils.sendDebugMessage(1,"<gray>Trying to reconnect last camera player with nickname ${lastCameraNickname}...")
-        if (lastCameraPlayer != null)
+        if (lastCameraPlayer != null && lastCameraPlayer.isOnline)
             startCamera(lastCameraPlayer)
         else
-            VinUtils.sendDebugMessage(1,"<gray>Could not reconnect ${lastCameraNickname}: Player is null.")
+            VinUtils.sendDebugMessage(1,"<gray>Could not reconnect ${lastCameraNickname}: Player is null or offline.")
     }
 
     fun cameraTask() {

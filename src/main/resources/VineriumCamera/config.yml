@@ -1,0 +1,25 @@
+VineriumCamera:
+  Language: ru_ru
+  Delay: 40
+  TimeToPlayerChange: 1200
+  MaxPositionTime: 300
+  MinRadius: 2.0
+  MaxRadius: 5.0
+  MaxHeight: 5.2
+  MinHeight: -0.8
+  MaxPositionTries: 20
+  CommandsOnStart:
+    - gm 3 %player_name% -s
+  DefaultCameraNickname: VinCamera
+  ReconnectEnabled: true
+  LightSourceMaterials:
+    - TORCH
+    - LANTERN
+    - GLOWSTONE
+    - OCHRE_FROGLIGHT
+    - VERDANT_FROGLIGHT
+    - PEARLESCENT_FROGLIGHT
+    - LIGHT
+    - SHROOMLIGHT
+    - REDSTONE_TORCH
+    - LAVA_BUCKET
