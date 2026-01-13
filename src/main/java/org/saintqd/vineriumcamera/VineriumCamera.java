@@ -1,5 +1,6 @@
 package org.saintqd.vineriumcamera;
 
+import net.kyori.adventure.key.Key;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.saintqd.vineriumcamera.commands.VinCameraCommandsManager;
@@ -70,9 +71,9 @@ public class VineriumCamera extends JavaPlugin {
         reloadConfig();
 
         String selectedLang = getConfig().getString("VineriumCamera.Language");
-        HashMap<String,String> langLines = VineriumLib.inst().getLangManager().loadLanguageFile(
+        HashMap<Key,String> langLines = VineriumLib.inst().getLangManager().loadLanguageFile(this,
                 plugin.getDataFolder().getPath() + File.separator + "lang" + File.separator + selectedLang + ".yml");
-        VineriumLib.inst().getLangManager().registerLangLines(this,langLines);
+        VineriumLib.inst().getLangManager().registerLangLines(langLines);
 
         cameraInstance.updateParams();
         getLogger().info("VineriumCamera params updated.");

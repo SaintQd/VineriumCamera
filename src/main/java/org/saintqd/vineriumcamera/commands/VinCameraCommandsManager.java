@@ -29,7 +29,7 @@ public class VinCameraCommandsManager {
             commands.register(
                     Commands.literal("vincamera")
                             .executes(commandContext -> {
-                                commandContext.getSource().getSender().sendMessage(VineriumLib.inst().getLangManager().parseLangString(plugin,"notEnoughArguments"));
+                                commandContext.getSource().getSender().sendMessage(VineriumLib.inst().getLangManager().parseLangString(plugin,"not_enough_arguments"));
                                 return Command.SINGLE_SUCCESS;
                             })
                             .then(Commands.literal("reload")
@@ -126,7 +126,7 @@ public class VinCameraCommandsManager {
     private static void reloadCommand(CommandSender sender) {
         VineriumCamera.inst().loadData();
         if (sender instanceof Player)
-            sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"commandReload"));
+            sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"command_reload"));
     }
 
     private static void startCameraCommand(CommandSender sender, Player player) {
@@ -140,7 +140,7 @@ public class VinCameraCommandsManager {
 
         camera.startCamera(player);
 
-        sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"cameraStart", player.getName()));
+        sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"camera_start", player.getName()));
     }
 
     private static void stopCameraCommand(CommandSender sender) {
@@ -148,14 +148,14 @@ public class VinCameraCommandsManager {
         VinCamera camera = VineriumCamera.inst().getCameraInstance();
         camera.stopCamera();
 
-        sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"cameraStop"));
+        sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"camera_stop"));
     }
 
     private static void setWatchedPlayerCommand(CommandSender sender, Player player) {
 
         VinCamera camera = VineriumCamera.inst().getCameraInstance();
         if (camera.getTask() == null) {
-            sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"cameraNotActive"));
+            sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"camera_not_active"));
             return;
         }
 
@@ -163,14 +163,14 @@ public class VinCameraCommandsManager {
         camera.setWatchedPlayer(player);
         camera.setActionBarMessage(Component.text(player.getName()).color(NamedTextColor.GRAY));
 
-        sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"cameraSetWatched",player.getName()));
+        sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"camera_set_watched",player.getName()));
     }
 
     private static void setNextPlayerCommand(CommandSender sender) {
 
         VinCamera camera = VineriumCamera.inst().getCameraInstance();
         if (camera.getTask() == null) {
-            sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"cameraNotActive"));
+            sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"camera_not_active"));
             return;
         }
 
@@ -179,10 +179,10 @@ public class VinCameraCommandsManager {
             camera.setLastPlayerWatchTime(VinUtils.getCurrentTick());
             camera.setWatchedPlayer(selectedPlayer);
             camera.setActionBarMessage(Component.text(selectedPlayer.getName()).color(NamedTextColor.GRAY));
-            sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"cameraSetWatched",selectedPlayer.getName()));
+            sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"camera_set_watched",selectedPlayer.getName()));
         }
         else {
-            sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"cameraNextPlayerNotFound"));
+            sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"camera_next_player_not_found"));
         }
 
     }
@@ -191,21 +191,21 @@ public class VinCameraCommandsManager {
 
         VinCamera camera = VineriumCamera.inst().getCameraInstance();
 
-        sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"cameraInfoHeader"));
+        sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"camera_info_header"));
         if (camera.getTask() == null) {
-            sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"cameraNotActive"));
+            sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"camera_not_active"));
             return;
         }
         if (camera.getCameraPlayer() != null)
-            sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"cameraInfoSource",camera.getCameraPlayer().getName()));
+            sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"camera_info_source",camera.getCameraPlayer().getName()));
         else
-            sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"cameraInfoSourceNotFound"));
+            sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"camera_info_source_not_found"));
         if (camera.getWatchedPlayer() != null)
-            sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"cameraInfoTarget",camera.getWatchedPlayer().getName()));
+            sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"camera_Info_target",camera.getWatchedPlayer().getName()));
         else
-            sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"cameraInfoTargetNotFound"));
+            sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"camera_Info_target_not_found"));
         long timeToChange = VinUtils.getCurrentTick() - camera.getLastPlayerWatchTime() + camera.getTimeToPlayerChange();
-        sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"cameraInfoTimeToChange",Long.toString(timeToChange)));
+        sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"camera_Info_time_to_change",Long.toString(timeToChange)));
     }
 
     private static void lockCommand(CommandSender sender) {
@@ -214,11 +214,11 @@ public class VinCameraCommandsManager {
 
         if (camera.getLocked()) {
             camera.setLocked(false);
-            sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"cameraLockOff"));
+            sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"camera_lock_off"));
         }
         else {
             camera.setLocked(true);
-            sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"cameraLockOn"));
+            sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"camera_lock_on"));
         }
     }
 
@@ -229,9 +229,9 @@ public class VinCameraCommandsManager {
         List<Player> possiblePlayers = camera.getPossiblePlayers();
 
         int maxPage = possiblePlayers.size() / 8 + 1;
-        sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"cameraOrderHeader",Integer.toString(page),Integer.toString(maxPage)));
+        sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"camera_order_header",Integer.toString(page),Integer.toString(maxPage)));
         if (page < 0 || page > maxPage) {
-            sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"cameraOrderWrongPage"));
+            sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"camera_order_wrong_page"));
             return;
         }
         int startIndex = (page - 1) * 8;
@@ -240,13 +240,13 @@ public class VinCameraCommandsManager {
             Player player = possiblePlayers.get(i);
             TriState permissionState = player.permissionValue("vineriumcamera.showforbid");
             if (camera.getCameraPlayer() == player)
-                sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(), "cameraOrderLayoutCamera", Integer.toString(i), player.getName()));
+                sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(), "camera_order_layout_camera", Integer.toString(i), player.getName()));
             else if (camera.getWatchedPlayer() == player)
-                sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(), "cameraOrderLayoutCurrent", Integer.toString(i), player.getName()));
+                sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(), "camera_order_layout_current", Integer.toString(i), player.getName()));
             else if (player.hasPermission("vineriumcamera.toggleshow") && (permissionState == TriState.TRUE))
-                sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(), "cameraOrderLayoutForbidden", Integer.toString(i), player.getName()));
+                sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(), "camera_order_layout_forbidden", Integer.toString(i), player.getName()));
             else
-                sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(), "cameraOrderLayout", Integer.toString(i), player.getName()));
+                sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(), "camera_order_layout", Integer.toString(i), player.getName()));
         }
     }
 
@@ -258,11 +258,11 @@ public class VinCameraCommandsManager {
         TriState permissionState = player.permissionValue("vineriumcamera.showforbid");
         if (permissionState == TriState.FALSE || permissionState == TriState.NOT_SET) {
             VineriumLib.inst().getVaultManager().getPermissionProvider().playerAdd(null,player, "vineriumcamera.showforbid");
-            sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"cameraToggleOn"));
+            sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"camera_toggle_on"));
         }
         else {
             VineriumLib.inst().getVaultManager().getPermissionProvider().playerRemove(null,player, "vineriumcamera.showforbid");
-            sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"cameraToggleOff"));
+            sender.sendMessage(VineriumLib.inst().getLangManager().parseLangString(VineriumCamera.inst(),"camera_toggle_off"));
         }
     }
 

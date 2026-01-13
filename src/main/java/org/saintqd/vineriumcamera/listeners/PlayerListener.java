@@ -1,7 +1,9 @@
 package org.saintqd.vineriumcamera.listeners;
 
+import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.saintqd.vineriumcamera.VinCamera;
 import org.saintqd.vineriumcamera.VineriumCamera;
@@ -18,5 +20,13 @@ public class PlayerListener implements Listener {
         if (event.getPlayer() == camera.getWatchedPlayer())
             camera.setWatchedPlayerMoveEvent(event);
 
+    }
+
+    @EventHandler
+    public void onCameraDamage(EntityDamageEvent event) {
+        if (event.getEntityType() == EntityType.PLAYER
+                && VineriumCamera.inst().getCameraInstance().getCameraPlayer() == event.getEntity()
+                && VineriumCamera.inst().getCameraInstance().getDamageable())
+            event.setCancelled(true);
     }
 }

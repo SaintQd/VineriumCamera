@@ -32,9 +32,10 @@ class VinCamera {
     var lastPositionChange : Long = 0
     var actionBarMessage : Component = Component.empty()
     var lightSourceMaterials = mutableSetOf<Material>()
-    var locked = false;
-    var lastCameraNickname = "";
-    var reconnectEnabled = true;
+    var locked = false
+    var lastCameraNickname = ""
+    var reconnectEnabled = true
+    var damageable = false
 
     var cameraDelay : Long = 40
     var timeToPlayerChange : Long = 1200
@@ -59,6 +60,7 @@ class VinCamera {
         commandsOnStart = VineriumCamera.inst().config.getStringList("VineriumCamera.CommandsOnStart")
         lastCameraNickname = VineriumCamera.inst().config.getString("VineriumCamera.DefaultCameraNickname","")!!
         reconnectEnabled = VineriumCamera.inst().config.getBoolean("VineriumCamera.ReconnectEnabled",true)
+        damageable = VineriumCamera.inst().config.getBoolean("VineriumCamera.Damageable",false)
         for (sourceMaterialString in VineriumCamera.inst().config.getStringList("VineriumCamera.LightSourceMaterials")) {
             val material = EnumUtils.getEnum(Material::class.java,sourceMaterialString.uppercase())
             if (material != null)
