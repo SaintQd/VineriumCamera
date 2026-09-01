@@ -22,7 +22,6 @@ dependencies {
     compileOnly("com.github.Zrips:CMI-API:9.7.14.3")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7.1")
     compileOnly(files("../VineriumLib/build/libs/VineriumLib-1.0-SNAPSHOT.jar"))
-    implementation(kotlin("stdlib-jdk8"))
 }
 
 tasks.test {
@@ -33,7 +32,7 @@ tasks.withType<Jar> {
     // To avoid the duplicate handling strategy error
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
-    // To add all of the dependencies otherwise a "NoClassDefFoundError" error
+    // To add all the dependencies otherwise a "NoClassDefFoundError" error
     from(sourceSets.main.get().output)
 
     dependsOn(configurations.runtimeClasspath)
